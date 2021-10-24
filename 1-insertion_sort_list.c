@@ -9,32 +9,43 @@
  */
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *prev_tmp, *tmp;
+	listint_t *prev, *next, *head = *list;
 
 	if (!list || !(*list) || (*list)->next == NULL)
 		return;
 
-	while ((*list)->next)
+	while (head)
 	{
-		tmp = (*list)->next;
-		prev_tmp = tmp->prev;
-		while (prev_tmp->prev && (prev_tmp->n > tmp->n))
+		next = head;
+		prev = next->prev;
+		while (prev && (prev->n > next->n))
 		{
-			tmp->next = prev_tmp;
-			prev_tmp->prev = tmp;
-			
-			tmp->prev = prev_tmp->prev;
-			prev_tmp->next = tmp->next;
-	
-			tmp->next->prev = prev_tmp;
-			prev_tmp->prev->next = tmp;
-		
-			print_list((const listint_t *)*list);
 
-			tmp = prev_tmp;
-			prev_tmp = prev_tmp->prev;
+			swap_list(list, &prev, next);
+			print_list((const listint_t *)*list);
 		}
 
-		*list = (*list)->next;
+		head = head->next;
 	}
+}
+
+/**
+ * swap_list - Swaps the position of two nodes of a doubly linked list
+ * @list: a double pointer to a doubly linked list
+ * @prev: Double pointer to the node to be taken forward
+ * @next: The node to bring backward
+ */
+void swap_list(listint_t **list, listint_t **prev, listint_t *next)
+{
+	(*prev)->next = next->next;
+	if (next->next)
+		next->next->prev = *prev;
+	next->prev = (*prev)->prev;
+	next->next = *prev;
+	if ((*prev)->prev)
+		(*prev)->prev->next = next;
+	else
+		*list = next;
+	(*prev)->prev = next;
+	*prev = next->prev;
 }
