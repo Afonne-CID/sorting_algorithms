@@ -1,4 +1,4 @@
-#include "sorts.h"
+#include "sort.h"
 
 /**
  * cocktail_sort_list - Sorts a doubly linked list
@@ -9,7 +9,7 @@
 void cocktail_sort_list(listint_t **list)
 {
 	listint_t *node, *tail;
-	bool sorted = false;
+	int sorted = 0;
 
 	if (!list || !(*list) || !((*list)->next))
 		return;
@@ -18,9 +18,9 @@ void cocktail_sort_list(listint_t **list)
 	for (; tail->next;)
 		tail = tail->next;
 
-	while (sorted == false)
+	while (sorted == 0)
 	{
-		sorted = true;
+		sorted = 1;
 		node = *list;
 		for (; node != tail; node = node->next)
 		{
@@ -28,30 +28,30 @@ void cocktail_sort_list(listint_t **list)
 			{
 				swap_forward(list, &tail, &node);
 				print_list((const listint_t *)*list);
-				sorted = false;
+				sorted = 0;
 			}
 		}
 		node = node->prev;
 		for (; node != *list; node = node->prev)
 		{
-			if (nod->n < node->prev->n)
+			if (node->n < node->prev->n)
 			{
 				swap_backward(list, &tail, &node);
 				print_list((const listint_t *)*list);
-				sorted = false;
+				sorted = 0;
 			}
 		}
 	}
 }
 
 /**
- * sort_forward - Swaps the position of two nodes of a doubly linked list
+ * swap_forward - Swaps the position of two nodes of a doubly linked list
  *
  * @list: A double pointer to a doubly linked list
  * @tail: A double pointer to the tail of a doubly linked list
  * @node: A double pointer to the node to move forward
  */
-void sort_forward(listint_t **list, listint_t **tail, listint_t **node)
+void swap_forward(listint_t **list, listint_t **tail, listint_t **node)
 {
 	listint_t *tmp = (*node)->next;
 
@@ -71,13 +71,13 @@ void sort_forward(listint_t **list, listint_t **tail, listint_t **node)
 }
 
 /**
- * sort_backward- Swaps the position of two nodes of a doubly linked list
+ * swap_backward- Swaps the position of two nodes of a doubly linked list
  *
  * @list: A double pointer to doubly linked list
  * @tail: Double pointer to the tail of a doubly linked list (listint_t)
  * @node: A double pointer to the node to move backward
  */
-void sort_backward(listint_t **list, listint_t **tail, listint_t **node)
+void swap_backward(listint_t **list, listint_t **tail, listint_t **node)
 {
 	listint_t *tmp = (*node)->prev;
 
@@ -87,7 +87,7 @@ void sort_backward(listint_t **list, listint_t **tail, listint_t **node)
 		*tail = tmp;
 	tmp->next = (*node)->next;
 	(*node)->prev = tmp->prev;
-	if (tmp->Prev)
+	if (tmp->prev)
 		tmp->prev->next = *node;
 	else
 		*list = *node;
