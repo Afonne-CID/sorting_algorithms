@@ -1,8 +1,9 @@
 #include "sorts.h"
 
 /**
- * cocktail_sort_list - Sorts a doubly linked list of integers in ascending order
- *      using the `Cocktail shaker sort algorithm`
+ * cocktail_sort_list - Sorts a doubly linked list
+ *      of integers in ascending order using the
+ *      `Cocktail shaker sort algorithm`
  * @list: A linked list to sort
  */
 void cocktail_sort_list(listint_t **list)
@@ -45,6 +46,8 @@ void cocktail_sort_list(listint_t **list)
 
 /**
  * sort_forward - Swaps the position of two nodes of a doubly linked list
+ *
+ * @list: A double pointer to a doubly linked list
  * @tail: A double pointer to the tail of a doubly linked list
  * @node: A double pointer to the node to move forward
  */
@@ -68,11 +71,13 @@ void sort_forward(listint_t **list, listint_t **tail, listint_t **node)
 }
 
 /**
- * sort_backward = Swaps the position of two nodes of a doubly linked list
+ * sort_backward- Swaps the position of two nodes of a doubly linked list
+ *
+ * @list: A double pointer to doubly linked list
  * @tail: Double pointer to the tail of a doubly linked list (listint_t)
  * @node: A double pointer to the node to move backward
  */
-void sort_backward(listint_t **list, listint_t **tail,listint_t **node)
+void sort_backward(listint_t **list, listint_t **tail, listint_t **node)
 {
 	listint_t *tmp = (*node)->prev;
 
